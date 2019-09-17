@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yym.dao.user.UserDao">
+
+    <resultMap id="User" type="com.yym.bean.User">
+        <result column="user_id" property="userId" />
+        <result column="account" property="account" />
+        <result column="password" property="password" />
+        <result column="user_type" property="userType" />
+    </resultMap>
+
+    <select id="checkUser" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(user_id) from user where account = #{account}
+    </select>
+
+    <insert id="saveUser" parameterType="java.util.Map">
+        insert into user(account,password,user_type) values(#{userPhone},#{password},#{userType})
+    </insert>
+
+    <select id="checkLogin" parameterType="java.util.Map" resultMap="User">
+        select * from user  where account = #{account} and password = #{password}
+    </select>
+
+</mapper>
